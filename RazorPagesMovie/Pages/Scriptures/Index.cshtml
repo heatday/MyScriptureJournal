@@ -1,0 +1,75 @@
+﻿@page "{searchString?}"
+@model MyScriptureJournal.Pages.Movies.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<form>
+    <p>
+        <label for="movieGenre">Books:</label>
+        <select id="movieGenre" asp-for="MovieGenre" asp-items="Model.Genres">
+            <option value="">All</option>
+        </select>
+
+        <label for="searchString">Title:</label>
+        <input type="text" id="searchString" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Index" asp-route-sortBy="book">Book</a>
+            </th>
+            <th>
+                <label for="chapter">Chapter</label>
+            </th>
+            <th>
+                <label for="verse">Verse</label>
+            </th>
+            <th>
+                <label for="note">Note</label>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortBy="date">Date Added</a>
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Movie)
+        {
+                <tr>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.Book)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.Chapter)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.Verse)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit Book</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">View Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete Book</a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
